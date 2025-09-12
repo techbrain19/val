@@ -1,13 +1,23 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(__dirname + '/../../events.db');
+// Removed leftover line from previous SQLite code
+const pool = require('./db');
 
-db.run(`CREATE TABLE IF NOT EXISTS events (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  date TEXT,
-  description TEXT,
-  link_token TEXT,
-  expires_at TEXT
-)`);
+async function createTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS events (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255),
+        date DATE,
+        description TEXT,
+        link_token VARCHAR(255),
+        expires_at TIMESTAMP
+      )
+    `);
+    console.log('Events table ensured.');
+  } catch (err) {
+    console.error('Error creating events table:', err);
+  }
+}
+createTable();
 
-module.exports = db;
+module.exports = pool;

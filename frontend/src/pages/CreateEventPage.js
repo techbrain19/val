@@ -11,7 +11,7 @@ export default function CreateEventPage() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:4000/api/events', form);
+      const res = await axios.post('https://potential-journey-96g564w4jrvh76g4-4000.app.github.dev/api/events/', form);
       setLink(res.data.link);
     } catch (err) {
       alert('Error creating event');
