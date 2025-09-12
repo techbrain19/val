@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from './CreateEventPage.module.css';
 
 export default function CreateEventPage() {
   const [form, setForm] = useState({ name: '', date: '', description: '' });
@@ -18,20 +19,40 @@ export default function CreateEventPage() {
   };
 
   return (
-    <div>
-      <h2>Create Event</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} required />
-        <input name="date" type="date" onChange={handleChange} required />
-        <textarea name="description" placeholder="Description" onChange={handleChange} required />
-        <button type="submit">Create</button>
-      </form>
-      {link && (
-        <div>
-          <p>Share this link:</p>
-          <a href={`/event/${link.split('/').pop()}`}>{`/event/${link.split('/').pop()}`}</a>
-        </div>
-      )}
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <div className={styles.title}>Create Event</div>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <input
+            className={styles.input}
+            name="name"
+            placeholder="Event Name"
+            onChange={handleChange}
+            required
+          />
+          <input
+            className={styles.input}
+            name="date"
+            type="date"
+            onChange={handleChange}
+            required
+          />
+          <textarea
+            className={styles.textarea}
+            name="description"
+            placeholder="Event Description"
+            onChange={handleChange}
+            required
+          />
+          <button className={styles.button} type="submit">Create</button>
+        </form>
+        {link && (
+          <div className={styles.linkBox}>
+            <p>Share this link:</p>
+            <a className={styles.link} href={`/event/${link.split('/').pop()}`}>{`/event/${link.split('/').pop()}`}</a>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
