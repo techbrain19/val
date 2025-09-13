@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styles from './CreateEventPage.module.css';
-
 export default function CreateEventPage() {
   const [form, setForm] = useState({ name: '', date: '', description: '' });
-  const [link, setLink] = useState('');
+  const [error, setError] = useState('');
+  const [isNavigating, setIsNavigating] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
   const handleSubmit = async e => {
     e.preventDefault();
+    if (isNavigating) return;
+    setIsNavigating(true);
     try {
-      const res = await axios.post('https://potential-journey-96g564w4jrvh76g4-4000.app.github.dev/api/events/', form);
-      setLink(res.data.link);
+      const res = await axios.post(`${API_URL}/api/events`, form);
+      const token = res.data.link.split('/').pop();
+      navigate(`/event/${token}`);
     } catch (err) {
-      alert('Error creating event');
+      setIsNavigating(false);
+      if (err.response) {
+        setError(`Error: ${err.response.data.error || 'Failed to create event.'}`);
+      } else if (err.request) {
+        setError('Network error: Could not reach backend.');
+      } else {
+        setError(`Error: ${err.message}`);
+      }
     }
   };
 
@@ -22,6 +31,7 @@ export default function CreateEventPage() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.title}>Create Event</div>
+        {error && <div className={styles.error}>{error}</div>}
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
             className={styles.input}
@@ -44,14 +54,8 @@ export default function CreateEventPage() {
             onChange={handleChange}
             required
           />
-          <button className={styles.button} type="submit">Create</button>
+          <button className={styles.button} type="submit" disabled={isNavigating}>Create</button>
         </form>
-        {link && (
-          <div className={styles.linkBox}>
-            <p>Share this link:</p>
-            <a className={styles.link} href={`/event/${link.split('/').pop()}`}>{`/event/${link.split('/').pop()}`}</a>
-          </div>
-        )}
       </div>
     </div>
   );

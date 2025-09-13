@@ -1,0 +1,98 @@
+.landingBg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffb6c1 0%, #ffe4e1 100%);
+  position: relative;
+  overflow: hidden;
+}
+.bgImage {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('https://pngimg.com/uploads/gift/gift_PNG5972.png') center/30% no-repeat,
+              url('https://pngimg.com/uploads/heart/heart_PNG51337.png') right/20% no-repeat;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+.card {
+  background: rgba(255,255,255,0.85);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.37);
+  padding: 2.5rem 3rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.heartGift {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  animation: bounce 1.5s infinite alternate;
+}
+@keyframes bounce {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+.heart {
+  color: #ff69b4;
+  margin-right: 0.5rem;
+  filter: drop-shadow(0 0 8px #ffb6c1);
+}
+.gift {
+  color: #ff69b4;
+  filter: drop-shadow(0 0 8px #ffe4e1);
+}
+.title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #ff69b4;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  animation: shimmer 2s linear infinite;
+  background: linear-gradient(90deg, #ffb6c1, #ffe4e1, #ffb6c1);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@keyframes shimmer {
+  0% { background-position: 0 0; }
+  100% { background-position: 200% 0; }
+}
+.date {
+  font-size: 1.1rem;
+  color: #d46a6a;
+  margin-bottom: 0.5rem;
+}
+.desc {
+  font-size: 1.2rem;
+  color: #a0522d;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 2s;
+}
+.loveMsg {
+  font-size: 1.1rem;
+  color: #ff69b4;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  animation: fadeIn 2.5s;
+}
+.loader {
+  font-size: 1.5rem;
+  color: #ff69b4;
+  text-align: center;
+  margin-top: 3rem;
+}
+.error {
+  font-size: 1.3rem;
+  color: #d46a6a;
+  text-align: center;
+  margin-top: 3rem;
+}
